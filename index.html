@@ -1,510 +1,684 @@
-<!doctype html>
-<html>
-<head>
-<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-
-<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
-.mac-os-11 { --title-bar-height: 28px; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; tab-size: 4; background-position: inherit inherit; background-repeat: inherit inherit; }
-iframe { margin: auto; }
-a.url { word-break: break-all; }
-a:active, a:hover { outline: 0px; }
-.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
-#write.first-line-indent p { text-indent: 2em; }
-#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
-#write.first-line-indent li { margin-left: 2em; }
-.for-image #write { padding-left: 8px; padding-right: 8px; }
-body.typora-export { padding-left: 30px; padding-right: 30px; }
-.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
-.typora-export .task-list-item input { pointer-events: none; }
-@media screen and (max-width: 500px) { 
-  body.typora-export { padding-left: 0px; padding-right: 0px; }
-  #write { padding-left: 20px; padding-right: 20px; }
-  .CodeMirror-sizer { margin-left: 0px !important; }
-  .CodeMirror-gutters { display: none !important; }
-}
-#write li > figure:last-child { margin-bottom: 0.5rem; }
-#write ol, #write ul { position: relative; }
-img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
-button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
-input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
-*, ::after, ::before { box-sizing: border-box; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
-p { line-height: inherit; }
-h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
-p { orphans: 4; }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
-.hidden { display: none; }
-.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
-a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
-sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
-#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
-figure > table { margin: 0px; }
-tr { break-inside: avoid; break-after: auto; }
-thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 32px; }
-.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
-.CodeMirror-linenumber { }
-.CodeMirror { text-align: left; }
-.CodeMirror-placeholder { opacity: 0.3; }
-.CodeMirror pre { padding: 0px 4px; }
-.CodeMirror-lines { padding: 0px; }
-div.hr:focus { cursor: none; }
-#write pre { white-space: pre-wrap; }
-#write.fences-no-line-wrapping pre { white-space: pre; }
-#write pre.ty-contain-cm { white-space: normal; }
-.CodeMirror-gutters { margin-right: 4px; }
-.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
-.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-#write .md-fences.mock-cm { white-space: pre-wrap; }
-.md-fences.md-fences-with-lineno { padding-left: 0px; }
-#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
-.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
-.CodeMirror-line, twitterwidget { break-inside: avoid; }
-.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
-.footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
-li div { padding-top: 0px; }
-blockquote { margin: 1rem 0px; }
-li .mathjax-block, li p { margin: 0.5rem 0px; }
-li blockquote { margin: 1rem 0px; }
-li { margin: 0px; position: relative; }
-blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child, li > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
-#write .footnote-line { white-space: pre-wrap; }
-@media print { 
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
-  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
-  .typora-export * { -webkit-print-color-adjust: exact; }
-  .typora-export #write { break-after: avoid; }
-  .typora-export #write::after { height: 0px; }
-  .is-mac table { break-inside: avoid; }
-  .typora-export-show-outline .typora-export-sidebar { display: none; }
-}
-.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
-pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
-p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
-#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
-p > .md-image:only-child { display: inline-block; width: 100%; }
-#write .MathJax_Display { margin: 0.8em 0px 0px; }
-.md-math-block { width: 100%; }
-.md-math-block:not(:empty)::after { display: none; }
-.MathJax_ref { fill: currentcolor; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
-.md-task-list-item { position: relative; list-style-type: none; }
-.task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
-.math { font-size: 1rem; }
-.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
-.md-toc-content { position: relative; margin-left: 0px; }
-.md-toc-content::after, .md-toc::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-item a { text-decoration: none; }
-.md-toc-inner:hover { text-decoration: underline; }
-.md-toc-inner { display: inline-block; cursor: pointer; }
-.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
-.md-toc-h2 .md-toc-inner { margin-left: 2em; }
-.md-toc-h3 .md-toc-inner { margin-left: 4em; }
-.md-toc-h4 .md-toc-inner { margin-left: 6em; }
-.md-toc-h5 .md-toc-inner { margin-left: 8em; }
-.md-toc-h6 .md-toc-inner { margin-left: 10em; }
-@media screen and (max-width: 48em) { 
-  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
-  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
-  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
-  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
-}
-a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
-.footnote-line a:not(.reversefootnote) { color: inherit; }
-.md-attr { display: none; }
-.md-fn-count::after { content: "."; }
-code, pre, samp, tt { font-family: var(--monospace); }
-kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
-.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
-code { text-align: left; }
-a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
-.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg { max-width: 100%; }
-[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
-[lang="mermaid"] .node text { font-size: 1rem; }
-table tr th { border-bottom-width: 0px; }
-video { max-width: 100%; display: block; margin: 0px auto; }
-iframe { max-width: 100%; width: 100%; border: none; }
-.highlight td, .highlight tr { border: 0px; }
-mark { background-color: rgb(255, 255, 0); color: rgb(0, 0, 0); background-position: initial initial; background-repeat: initial initial; }
-.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
-.md-expand mark .md-meta { opacity: 0.3 !important; }
-mark .md-meta { color: rgb(0, 0, 0); }
-@media print { 
-  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
-}
-.md-diagram-panel .messageText { stroke: none !important; }
-.md-diagram-panel .start-state { fill: var(--node-fill); }
-.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
-.md-require-zoom-fix { height: auto; margin-top: 16px; margin-bottom: 16px; }
-.md-require-zoom-fix foreignObject { font-size: var(--mermaid-font-zoom); }
-.md-fences.md-fences-math { font-size: 1em; }
-.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
-.md-fences-advanced:not(.md-focus) { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
-.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
-.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
-.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
-.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
-@media screen and (max-width: 1024px) { 
-  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
-}
-@media screen and (max-width: 800px) { 
-  .typora-export-sidebar { display: none; }
-}
-.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
-.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
-.outline-content strong { font-weight: 400; }
-.outline-expander { width: 1rem; height: 1.428571429rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
-.outline-expander::before { content: ''; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
-.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
-.outline-expander:hover::before { content: ''; }
-.outline-h1 > .outline-item { padding-left: 0px; }
-.outline-h2 > .outline-item { padding-left: 1em; }
-.outline-h3 > .outline-item { padding-left: 2em; }
-.outline-h4 > .outline-item { padding-left: 3em; }
-.outline-h5 > .outline-item { padding-left: 4em; }
-.outline-h6 > .outline-item { padding-left: 5em; }
-.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
-.outline-label:hover { text-decoration: underline; }
-.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
-.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left-width: 28px; border-left-style: solid; border-left-color: transparent; border-right-width: 28px; border-right-style: solid; border-right-color: transparent; }
-.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
-.outline-item-open > .outline-item > .outline-expander::before { content: ''; }
-.outline-children { display: none; }
-.info-panel-tab-wrapper { display: none; }
-.outline-item-open > .outline-children { display: block; }
-.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
-.typora-export .outline-item:hover { margin-right: -8px; border-right-width: 8px; border-right-style: solid; border-right-color: transparent; }
-.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
-.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: '−'; }
-.typora-export-collapse-outline .outline-children { display: none; }
-.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
-.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
-.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
-.md-inline-math-container mjx-container { zoom: 0.95; }
-
-
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Tao Ji  </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
 html {
-	font-size: 19px;
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
 }
 
-html, body {
-	margin: auto;
-	background: #fefefe;
-	-webkit-font-smoothing: antialiased;
-}
+html,
 body {
-	font-family: "Vollkorn", Palatino, Times;
-	color: #333;
-	line-height: 1.4;
-	text-align: justify;
+	margin: 0;
+	padding: 0;
 }
-
-#write {
-	max-width: 960px;
-	margin: 0 auto;
-	margin-bottom: 2em;
-	line-height: 1.53;
-	padding-top: 40px;
-}
-
-@media only screen and (min-width: 1400px) {
-	#write {
-		max-width: 1100px;
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
 	}
 }
 
-@media print {
-	html {
-		font-size: 13px;
-	}
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
 }
 
-/* Typography
--------------------------------------------------------- */
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
 
-#write>h1:first-child,
-h1 {
-	margin-top: 1.6em;
-	font-weight: normal;
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
 }
 
 h1 {
-	font-size:3em;
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
 }
 
 h2 {
-	margin-top:2em;
-	font-weight: normal;
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
 }
 
 h3 {
-	font-weight: normal;
-	font-style: italic;
-	margin-top: 3em;
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
 }
 
-h1, 
-h2, 
-h3{
-	text-align: center;
-}
-
-h2:after{
-	border-bottom: 1px solid #2f2f2f;
-    content: '';
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-    height: 1px;
-}
-
-h1+h2, h2+h3 {
-	margin-top: 0.83em;
-}
-
-p,
-.mathjax-block {
-	margin-top: 0;
-	-webkit-hypens: auto;
-	-moz-hypens: auto;
-	hyphens: auto;
-}
-ul {
-	list-style: square;
-	padding-left: 1.2em;
-}
-ol {
-	padding-left: 1.2em;
-}
-blockquote {
-	margin-left: 1em;
-	padding-left: 1em;
-	border-left: 1px solid #ddd;
-}
-code,
-pre {
-	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
-	font-size: .9em;
-	background: white;
-}
-.md-fences{
-	margin-left: 1em;
-	padding-left: 1em;
+.source {
 	border: 1px solid #ddd;
-	padding-bottom: 8px;
-	padding-top: 6px;
-	margin-bottom: 1.5em;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
 }
 
-a {
-	color: #2484c1;
-	text-decoration: none;
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
 }
-a:hover {
-	text-decoration: underline;
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
 }
-a img {
-	border: none;
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
 }
-h1 a,
-h1 a:hover {
-	color: #333;
-	text-decoration: none;
+
+mark {
+	background-color: transparent;
 }
+
+.indented {
+	padding-left: 1.5em;
+}
+
 hr {
-	color: #ddd;
+	background: transparent;
+	display: block;
+	width: 100%;
 	height: 1px;
-	margin: 2em 0;
-	border-top: solid 1px #ddd;
-	border-bottom: none;
-	border-left: 0;
-	border-right: 0;
-}
-.ty-table-edit {
-	background: #ededed;
-    padding-top: 4px;
-}
-table {
-	margin-bottom: 1.333333rem
-}
-table th,
-table td {
-	padding: 8px;
-	line-height: 1.333333rem;
-	vertical-align: top;
-	border-top: 1px solid #ddd
-}
-table th {
-	font-weight: bold
-}
-table thead th {
-	vertical-align: bottom
-}
-table caption+thead tr:first-child th,
-table caption+thead tr:first-child td,
-table colgroup+thead tr:first-child th,
-table colgroup+thead tr:first-child td,
-table thead:first-child tr:first-child th,
-table thead:first-child tr:first-child td {
-	border-top: 0
-}
-table tbody+tbody {
-	border-top: 2px solid #ddd
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
 }
 
-.task-list{
-	padding:0;
+img {
+	max-width: 100%;
 }
 
-.md-task-list-item {
-	padding-left: 1.6rem;
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
 }
 
-.md-task-list-item > input:before {
-	content: '\221A';
-	display: inline-block;
-	width: 1.33333333rem;
-  	height: 1.6rem;
-	vertical-align: middle;
-	text-align: center;
-	color: #ddd;
-	background-color: #fefefe;
+@page {
+	margin: 1in;
 }
 
-.md-task-list-item > input:checked:before,
-.md-task-list-item > input[checked]:before{
-	color: inherit;
+.collection-content {
+	font-size: 0.875rem;
 }
-.md-tag {
-	color: inherit;
-	font: inherit;
-}
-#write pre.md-meta-block {
-	min-height: 35px;
-	padding: 0.5em 1em;
-}
-#write pre.md-meta-block {
-	white-space: pre;
-	background: #f8f8f8;
-	border: 0px;
-	color: #999;
-	
-	width: 100vw;
-	max-width: calc(100% + 60px);
-	margin-left: -30px;
-	border-left: 30px #f8f8f8 solid;
-	border-right: 30px #f8f8f8 solid;
 
-	margin-bottom: 2em;
-	margin-top: -1.3333333333333rem;
-	padding-top: 26px;
-	padding-bottom: 10px;
-	line-height: 1.8em;
-	font-size: 0.9em;
-	font-size: 0.76em;
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
 	padding-left: 0;
 }
-.md-img-error.md-image>.md-meta{
-	vertical-align: bottom;
-}
-#write>h5.md-focus:before {
-	top: 2px;
+
+.column:last-child {
+	padding-right: 0;
 }
 
-.md-toc {
-	margin-top: 40px;
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
 }
 
-.md-toc-content {
-	padding-bottom: 20px;
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
 }
 
-.outline-expander:before {
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
 	color: inherit;
-	font-size: 14px;
-	top: auto;
-	content: "\f0da";
-	font-family: FontAwesome;
 }
 
-.outline-expander:hover:before,
-.outline-item-open>.outline-item>.outline-expander:before {
-  	content: "\f0d7";
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
 }
 
-/** source code mode */
-#typora-source {
-	font-family: Courier, monospace;
-    color: #6A6A6A;
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
 }
 
-.html-for-mac #typora-sidebar {
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
 }
 
-.cm-s-typora-default .cm-header, 
-.cm-s-typora-default .cm-property,
-.CodeMirror.cm-s-typora-default div.CodeMirror-cursor {
-	color: #428bca;
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
 }
 
-.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number {
-	color: #777777;
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-.typora-node .file-list-item-parent-loc, 
-.typora-node .file-list-item-time, 
-.typora-node .file-list-item-summary {
-	font-family: arial, sans-serif;
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
 }
 
-.md-task-list-item>input {
-    margin-left: -1.3em;
-    margin-top: calc(1rem - 12px);
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
 }
 
-.md-mathjax-midline {
-	background: #fafafa;
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
 }
 
-.md-fences .code-tooltip {
-	bottom: -2em !important;
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
 }
 
-.dropdown-menu .divider {
-	border-color: #e5e5e5;
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 
- :root {--mermaid-font-zoom:1em ;}  @media print { @page {margin: 0 0 0 0;} body.typora-export {padding-left: 0; padding-right: 0;} #write {padding:0;}}
-</style><title></title>
-</head>
-<body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><h2 id='tao-ji-纪焘）'><span>Tao Ji （纪焘）</span></h2>
-	<p><span>Hi! I am a Ph.D. student in the </span><a href='http://www.cs.ecnu.edu.cn/'><span>Department of Computer Science &amp; Technology</span></a><span> at </span><a href='http://www.ecnu.edu.cn/'><span>East China Normal University</span></a><span>(expected to graduate in 2022). </span></p><p><span>I am advised by </span><a href='http://ybwu.org/'><span>Prof. Yuanbin Wu</span></a><span> and work in the ECNU NLP Group (</span><a href='http://antnlp.org/'><span>AntNLP</span></a><span>).</span></p><p><span>I received my B.Eng degree from ECNU in 2017.</span></p><p><span>My main research interests lie within </span><strong><span>deep learning for natural language processing</span></strong><span>, and I am particularly interested in </span><em><span>Dependency Parsing</span></em><span> and </span><em><span>Reinforcement Learning</span></em><span>.</span></p><p><span>My CV is here -&gt; [</span><a href='https://github.com/taoji-nlp/taoji-nlp.github.io/blob/master/mycv_en.pdf'><span>en</span></a><span>]; [</span><a href='https://github.com/taoji-nlp/taoji-nlp.github.io/blob/master/mycv_zh.pdf'><span>zh</span></a><span>].</span></p><h4 id='teaching'><span>Teaching</span></h4><ul><li><p><span>Teaching assistant for Operating System Labs </span></p><p><a href='http://ybwu.org/ecnu-oslabs/index.html'><span>17-Fall</span></a></p></li></ul><h4 id='publications'><span>Publications</span></h4><ul><li><p><span>Word Reordering for Zero-shot Cross-lingual Structured Prediction</span></p><p><strong><span>Tao Ji</span></strong><span>, Yong Jiang, Tao Wang, Zhongqiang Huang, Fei Huang, Yuanbin Wu and Xiaoling Wang</span></p><p><span>In EMNLP 2021.</span></p><p><span>[wait]</span></p></li><li><p><span>A Unified Encoding of Structures in Transition Systems</span></p><p><strong><span>Tao Ji</span></strong><span>, Yong Jiang, Tao Wang, Zhongqiang Huang, Fei Huang, Yuanbin Wu and Xiaoling Wang</span></p><p><span>In EMNLP 2021.</span></p><p><span>[wait]</span></p></li><li><p><span>Generating CCG Categories</span></p><p><span>Yufang Liu, </span><strong><span>Tao Ji</span></strong><span>, Yuanbin Wu, Man Lan</span></p><p><span>In AAAI 2021.</span></p><p><span>[</span><a href='https://ojs.aaai.org/index.php/AAAI/article/view/17586'><span>bib</span></a><span>] [</span><a href='https://ojs.aaai.org/index.php/AAAI/article/view/17586'><span>paper</span></a><span>]</span></p></li></ul><ul><li><p><span>Dual Role Neural Graph Auto-encoder for CQA Recommendation</span></p><p><span>Xing Luo, Yuanyuan Jin, </span><strong><span>Tao Ji</span></strong><span>, Xiaoling Wang</span></p><p><span>In APWeb-WAIM 2020.</span></p><p><span>[</span><a href='https://www.researchgate.net/publication/346239167_Dual_Role_Neural_Graph_Auto-encoder_for_CQA_Recommendation'><span>bib</span></a><span>] [</span><a href='https://www.researchgate.net/publication/346239167_Dual_Role_Neural_Graph_Auto-encoder_for_CQA_Recommendation'><span>paper</span></a><span>]</span></p></li><li><p><span>Graph-based Dependency Parsing with Graph Neural Networks</span></p><p><strong><span>Tao Ji</span></strong><span>, Yuanbin Wu, Man Lan</span></p><p><span>In ACL 2019.</span></p><p><span>[</span><a href='https://aclanthology.org/P19-1237/'><span>bib</span></a><span>] [</span><a href='https://github.com/taoji-nlp/taoji-nlp.github.io/blob/master/gnn-dep-parsing.pdf'><span>paper</span></a><span>]</span></p></li></ul><ul><li><p><span>AntNLP at CoNLL 2018 Shared Task: A Graph-based Parser for Universal Dependency Parsing</span></p><p><strong><span>Tao Ji</span></strong><span>, Yufang Liu, Yijun Wang, Yuanbin Wu, Man Lan</span></p><p><span>In CoNLL 2018.</span></p><p><span>[</span><a href='http://universaldependencies.org/conll18/proceedings/bib/K18-2025.bib'><span>bib</span></a><span>] [</span><a href='http://universaldependencies.org/conll18/proceedings/pdf/K18-2025.pdf'><span>paper</span></a><span>]</span></p></li></ul><ul><li><p><span>ECNU at EPE 2017: Universal Dependencies Representations Parser</span></p><p><strong><span>Tao Ji</span></strong><span>, Yuekun Yao, Qi Zheng, Yuanbin Wu, Man Lan</span></p><p><span>In IWPT 2017.</span></p><p><span>[</span><a href='http://svn.nlpl.eu/epe/2017/public/epe.bib'><span>bib</span></a><span>] [</span><a href='http://svn.nlpl.eu/epe/2017/public/proceedings.pdf'><span>paper</span></a><span>]</span></p></li><li><p><span>A Fast and Lightweight System for Multilingual Dependency Parsing</span></p><p><strong><span>Tao Ji</span></strong><span>, Yuanbin Wu, Man Lan.</span></p><p><span>In CoNLL 2017. </span></p><p><span>[</span><a href='http://universaldependencies.org/conll17/proceedings/bib/K17-3025.bib'><span>bib</span></a><span>] [</span><a href='http://universaldependencies.org/conll17/proceedings/pdf/K17-3025.pdf'><span>paper</span></a><span>]</span></p></li></ul><h4 id='thesis'><span>Thesis</span></h4><p><strong><span>Bachelor Thesis</span></strong><span>: Dependency Parsing Based on Recurrent Neural Networks, 2017, grade 4.0 A</span></p><h4 id='software'><span>Software</span></h4><ul><li><strong><span>AntU</span></strong><span>: Universal data IO and neural network modules in NLP tasks. [</span><a href='https://github.com/AntNLP/antu'><span>Github</span></a><span>]</span></li><li><strong><span>ECNU-Parser</span></strong><span>: Multilingual Parsing from Raw Text to Universal Dependencies. [</span><a href='https://github.com/JT-Ushio/ECNU-Parser/tree/conll18'><span>Github</span></a><span>]</span></li></ul><h4 id='education--experience'><span>Education / Experience</span></h4><ul><li><span>2020 - 2021: Research Intern at Alibaba DAMO Academy</span></li><li><span>2017 - Present: M.S. student at East China Normal University</span></li><li><span>2013 - 2017: B.Eng from East China Normal University</span></li></ul>
-	<h4 id='selected-awards'><span>Selected Awards</span></h4><ul><li><span>Rank 1 at CCL2021 shared task: Multi-source Cross-domain Dependency Parsing, 2021</span></li><li><span>National Scholarship, 2018</span></li><li><span>Outstanding undergraduate thesis Award, East China Normal University, 2017</span></li><li><span>First Prize in Chinese undergraduate computer design contest (8th), 2015</span></li><li><span>Silver Medal in </span><a href='http://acm2015.shu.edu.cn/'><span>ACM-ICPC Asia EC-FINAL Contest</span></a><span>, 2015</span></li><li><span>Silver Medal in </span><a href='http://acm.nwpu.edu.cn/'><span>ACM-ICPC Asia Xian Regional Contest</span></a><span>, 2014</span></li></ul>
-	<h4 id='blog'><span><a href="https://taoji-nlp.github.io/blog/public/blog/blog">Blog</a></span></h4>
-	<h4 id='contact'><span>Contact</span></h4>
-	<p><a href='mailto:taoji.cs@gmail.com'><span>taoji.cs@gmail.com</span></a></p><p><span>B906 Science Building, </span></p><p><span>3663 North Zhongshan Road, Shanghai, 200062</span></p></div></div>
-</body>
-</html>
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="151c8ffd-17f5-8078-ad6a-c80c4c5c2852" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Tao%20Ji%20151c8ffd17f58078ad6ac80c4c5c2852/%25E7%25BA%25AA%25E7%2584%2598_%25E8%25AF%2581%25E4%25BB%25B6%25E7%2585%25A7_%25E5%2580%2599%25E9%2580%25891.jpg"/></div><h1 class="page-title">Tao Ji  </h1><p class="page-description"></p></header><div class="page-body"><p id="151c8ffd-17f5-80d5-991b-ed374ea3aa1b" class="">I am currently a postdoctoral researcher at the <a href="https://nlp.fudan.edu.cn/">Natural Language Processing Laboratory</a> of <a href="https://www.fudan.edu.cn/">Fudan University</a>, working under the supervision of <a href="https://xuanjing-huang.github.io/">Prof. Xuanjing Huang</a>. My postdoctoral tenure is expected to conclude in September 2025. Prior to joining Fudan NLP Lab, I got both my B.S. (2017) and Ph.D. (2023) degree in Computer Science from <a href="https://www.ecnu.edu.cn/">East China Normal University</a>, advised by Prof. <a href="https://ybwu.org/">Yuanbin Wu</a> and <a href="https://faculty.ecnu.edu.cn/_s16/wxl2/main.psp">Xiaoling Wang</a>.</p><h1 id="151c8ffd-17f5-8038-8756-d7e9ccb2b1b9" class="">Research</h1><p id="151c8ffd-17f5-806e-8c7e-dffb7e894ba3" class="">My primary research interests include the architectural design of LLMs, with a particular focus on Transformer position encoding, multimodal LLMs, and CUDA programming.</p><h1 id="151c8ffd-17f5-80d8-882d-fda545936681" class=""><strong>Publication</strong></h1><ul id="151c8ffd-17f5-8072-b814-ea784dedf724" class="bulleted-list"><li style="list-style-type:disc"><strong>MouSi: poly-visual-expert vision-language models</strong><p id="3663bf68-65dc-42bb-b24c-8c509d415951" class="">Xiaoran Fan*, <strong>Tao Ji*</strong>, Changhao Jiang*, Shuo Li*, Senjie Jin*, Sirui Song, Junke Wang, Boyang Hong, Lu Chen, Guodong Zheng, Ming Zhang, Caishuang Huang, Rui Zheng, Zhiheng Xi, Yuhao Zhou, Shihan Dou, Junjie Ye, Hang Yan, Tao Gui, Qi Zhang, Xipeng Qiu, Xuanjing Huang, Zuxuan Wu, Yu-Gang Jiang</p><p id="2bc19734-1675-482f-a323-02f4b377700c" class="">In《中国科学：信息科学》(IF=7.3).</p></li></ul><ul id="151c8ffd-17f5-80f7-9cb7-e20fb1f95585" class="bulleted-list"><li style="list-style-type:disc"><strong>Investigating and Mitigating Object Hallucinations in Pretrained Vision-Language (CLIP) Models</strong><p id="0f7036cc-6002-4535-bc8b-d0859edb0625" class="">Yufang Liu*, <strong>Tao Ji*</strong>, Changzhi Sun, Yuanbin Wu, Aimin Zhou</p><p id="5ccbb907-c996-4d03-8e93-1feda409068a" class="">In EMNLP 2024.  [<a href="https://aclanthology.org/2024.emnlp-main.1016.bib">bib</a>][<a href="https://aclanthology.org/2024.emnlp-main.1016.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8062-afb8-ccecfc789721" class="bulleted-list"><li style="list-style-type:disc"><strong>Generation with Dynamic Vocabulary</strong><p id="151c8ffd-17f5-803e-9037-e85034f4c499" class="">Yanting Liu, <strong>Tao Ji📧</strong>, Changzhi Sun, Yuanbin Wu<strong>📧</strong>, Xiaoling Wang<strong>📧</strong></p><p id="056b0b9a-c341-43f4-a0ec-c57c03dad73b" class="">In EMNLP 2024.  [<a href="https://aclanthology.org/2024.emnlp-main.1053.bib">bib</a>][<a href="https://aclanthology.org/2024.emnlp-main.1053.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-80a0-b485-d2b31cbe9ac6" class="bulleted-list"><li style="list-style-type:disc"><strong>LongHeads: Multi-Head Attention is Secretly a Long Context Processor</strong><p id="151c8ffd-17f5-808d-9ec2-c62c14a28d3c" class="">Yi Lu, Xin Zhou, Wei He, Jun Zhao, <strong>Tao Ji📧</strong>, Tao Gui<strong>📧</strong>, Qi Zhang<strong>📧</strong>, Xuanjing Huang</p><p id="151c8ffd-17f5-802b-ad19-fa4db68699c7" class="">In Findings of EMNLP 2024.  [<a href="https://aclanthology.org/2024.findings-emnlp.417.bib">bib</a>][<a href="https://aclanthology.org/2024.findings-emnlp.417.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-803b-a2fa-ea790470fd37" class="bulleted-list"><li style="list-style-type:disc"><strong>Poly-Visual-Expert Vision-Language Models</strong><p id="151c8ffd-17f5-8002-b2d0-c4e684ef15f7" class="">Xiaoran Fan*, <strong>Tao Ji*</strong>, Changhao Jiang*, Shuo Li*, Senjie Jin*, Sirui Song, Junke Wang, Boyang Hong, Lu Chen, Guodong Zheng, Ming Zhang, Caishuang Huang, Rui Zheng, Zhiheng Xi, Yuhao Zhou, Shihan Dou, Junjie Ye, Hang Yan, Tao Gui, Qi Zhang, Xipeng Qiu, Xuanjing Huang, Zuxuan Wu, Yu-Gang Jiang</p><p id="151c8ffd-17f5-8009-960e-e02656934b82" class="">In COLM 2024.  [<a href="https://openreview.net/forum?id=7QaEO9WYMa#discussion">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8004-b5a4-cc0148ec5ec4" class="bulleted-list"><li style="list-style-type:disc"><strong>Length Generalization of Causal Transformers without Position Encoding</strong><p id="f499f2f0-0d8c-4ada-aa2c-28415024cab6" class="">Jie Wang*, <strong>Tao Ji*</strong>, Yuanbin Wu, Hang Yan, Tao Gui, Qi Zhang, Xuanjing Huang, Xiaoling Wang</p><p id="34bbcc11-f76a-4709-a2e1-0f2c5ac3784e" class="">In Findings of ACL 2024.  [<a href="https://aclanthology.org/2024.findings-acl.834.bib">bib</a>][<a href="https://aclanthology.org/2024.findings-acl.834.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-80e0-8d17-d8818a91edeb" class="bulleted-list"><li style="list-style-type:disc"><strong>Rehearsal-free Continual Language Learning via Efficient Parameter Isolation</strong><p id="9b10a04e-2ed0-49d2-9df4-feb79252c662" class="">Zhicheng Wang, Yufang Liu, <strong>Tao Ji</strong>, Xiaoling Wang, Yuanbin Wu, Congcong Jiang, Ye Chao, Zhencong Han, Ling Wang, Xu Shao, Wenqiu Zeng</p><p id="8391a1fc-e70f-4a6a-896e-ff9f32844380" class="">In ACL 2023.  [<a href="https://aclanthology.org/2023.acl-long.612.bib">bib</a>][<a href="https://aclanthology.org/2023.acl-long.612.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-809a-a683-ea44cda04cb0" class="bulleted-list"><li style="list-style-type:disc"><strong>Typology Guided Multilingual Position Representations: Case on Dependency Parsing</strong><p id="94cd16aa-4787-4fcc-9e5b-33c3252d6c12" class=""><strong>Tao Ji</strong>, Yuanbin Wu, Xiaoling Wang</p><p id="3d149e70-c94f-4247-ac01-e3b77797b649" class="">In Findings of ACL 2023.  [<a href="https://aclanthology.org/2023.findings-acl.854.bib">bib</a>][<a href="https://aclanthology.org/2023.findings-acl.854.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-80c1-ba67-f68ed2c0706a" class="bulleted-list"><li style="list-style-type:disc"><strong>Zero-Shot Event Detection Based on Ordered Contrastive Learning and Prompt-Based Prediction</strong><p id="d7563723-0a6e-4556-a6e2-227bd7d74272" class="">Senhui Zhang, <strong>Tao Ji</strong>, Wendi Ji, Xiaoling Wang</p><p id="50efea6b-38e1-4d51-9d60-13d3cfcadf7f" class="">In Findings of NAACL 2022.  [<a href="https://aclanthology.org/2022.findings-naacl.196.bib">bib</a>][<a href="https://aclanthology.org/2022.findings-naacl.196.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8076-80e8-c188c08f4ee5" class="bulleted-list"><li style="list-style-type:disc"><strong>Explore Unsupervised Structures in Pretrained Models for Relation Extraction</strong><p id="151c8ffd-17f5-801a-99cb-f0e8db17742f" class="">Xi Yang*, <strong>Tao Ji*</strong>, Yuanbin Wu</p><p id="151c8ffd-17f5-80b1-b41d-c1d2659d9dab" class="">In Findings of EMNLP 2022.  [<a href="https://aclanthology.org/2022.findings-emnlp.453.bib">bib</a>][<a href="https://aclanthology.org/2022.findings-emnlp.453.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8059-9795-ffbc46ba17fd" class="bulleted-list"><li style="list-style-type:disc"><strong>Word Reordering for Zero-shot Cross-lingual Structured Prediction</strong><p id="151c8ffd-17f5-80cd-9e39-c0a26d7072ee" class=""><strong>Tao Ji</strong>, Yong Jiang, Tao Wang, Zhongqiang Huang, Fei Huang, Yuanbin Wu and Xiaoling Wang</p><p id="151c8ffd-17f5-80a0-99ff-efee7bf12b4d" class="">In EMNLP 2021.  [<a href="https://aclanthology.org/2021.emnlp-main.338/">bib</a>][<a href="https://aclanthology.org/2021.emnlp-main.338/">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8005-bd87-d6142d17953c" class="bulleted-list"><li style="list-style-type:disc"><strong>A Unified Encoding of Structures in Transition Systems</strong><p id="151c8ffd-17f5-8009-8b0c-ec272f99621f" class=""><strong>Tao Ji</strong>, Yong Jiang, Tao Wang, Zhongqiang Huang, Fei Huang, Yuanbin Wu and Xiaoling Wang</p><p id="151c8ffd-17f5-8065-a1b0-fa8e91b3329f" class="">In EMNLP 2021.  [<a href="https://aclanthology.org/2021.emnlp-main.339/">bib</a>][<a href="https://aclanthology.org/2021.emnlp-main.339/">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8041-91ee-dd140ea00349" class="bulleted-list"><li style="list-style-type:disc"><strong>Generating CCG Categories</strong><p id="151c8ffd-17f5-8041-a228-f01bad7b8c49" class="">Yufang Liu, <strong>Tao Ji</strong>, Yuanbin Wu, Man Lan</p><p id="151c8ffd-17f5-8085-98a7-cbe2e19bf28d" class="">In AAAI 2021.  [<a href="https://ojs.aaai.org/index.php/AAAI/article/view/17586">bib</a>] [<a href="https://ojs.aaai.org/index.php/AAAI/article/view/17586">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-80c6-bc07-c448fc7a47c9" class="bulleted-list"><li style="list-style-type:disc"><strong>Dual Role Neural Graph Auto-encoder for CQA Recommendation</strong><p id="151c8ffd-17f5-805f-84f6-da8e40100fb3" class="">Xing Luo, Yuanyuan Jin, <strong>Tao Ji</strong>, Xiaoling Wang</p><p id="151c8ffd-17f5-8042-9eb6-d83baf1baf70" class="">In APWeb-WAIM 2020.  [<a href="https://www.researchgate.net/publication/346239167_Dual_Role_Neural_Graph_Auto-encoder_for_CQA_Recommendation">bib</a>] [<a href="https://www.researchgate.net/publication/346239167_Dual_Role_Neural_Graph_Auto-encoder_for_CQA_Recommendation">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8046-bde9-db7228efa8b6" class="bulleted-list"><li style="list-style-type:disc"><strong>Graph-based Dependency Parsing with Graph Neural Networks</strong><p id="151c8ffd-17f5-80ac-8d83-dbb154a923e0" class=""><strong>Tao Ji</strong>, Yuanbin Wu, Man Lan</p><p id="151c8ffd-17f5-80e1-a7b1-ed7b80a0e408" class="">In ACL 2019.  [<a href="https://aclanthology.org/P19-1237/">bib</a>] [<a href="https://github.com/taoji-nlp/taoji-nlp.github.io/blob/master/gnn-dep-parsing.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-80be-83b2-db0d5feb0153" class="bulleted-list"><li style="list-style-type:disc"><strong>AntNLP at CoNLL 2018 Shared Task: A Graph-based Parser for Universal Dependency Parsing</strong><p id="151c8ffd-17f5-802e-87b9-cef2d4f1d593" class=""><strong>Tao Ji</strong>, Yufang Liu, Yijun Wang, Yuanbin Wu, Man Lan</p><p id="151c8ffd-17f5-8016-bf13-e878b2fbcf35" class="">In CoNLL 2018.  [<a href="http://universaldependencies.org/conll18/proceedings/bib/K18-2025.bib">bib</a>] [<a href="http://universaldependencies.org/conll18/proceedings/pdf/K18-2025.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-8074-9f73-f82146695f42" class="bulleted-list"><li style="list-style-type:disc"><strong>ECNU at EPE 2017: Universal Dependencies Representations Parser</strong><p id="151c8ffd-17f5-80af-9de9-c7296e6769fb" class=""><strong>Tao Ji</strong>, Yuekun Yao, Qi Zheng, Yuanbin Wu, Man Lan</p><p id="151c8ffd-17f5-8015-bb7d-e0ceb50406ec" class="">In IWPT 2017.  [<a href="http://svn.nlpl.eu/epe/2017/public/epe.bib">bib</a>] [<a href="http://svn.nlpl.eu/epe/2017/public/proceedings.pdf">paper</a>]</p></li></ul><ul id="151c8ffd-17f5-806a-88b1-dbe18667ea4f" class="bulleted-list"><li style="list-style-type:disc"><strong>A Fast and Lightweight System for Multilingual Dependency Parsing</strong><p id="151c8ffd-17f5-80d8-baa5-e9d6259387a2" class=""><strong>Tao Ji</strong>, Yuanbin Wu, Man Lan.</p><p id="151c8ffd-17f5-8032-a5b5-ee9d3c8c217d" class="">In CoNLL 2017.  [<a href="http://universaldependencies.org/conll17/proceedings/bib/K17-3025.bib">bib</a>] [<a href="http://universaldependencies.org/conll17/proceedings/pdf/K17-3025.pdf">paper</a>]</p></li></ul><h1 id="151c8ffd-17f5-80ef-8fd2-fa5c7bedafbb" class="">Thesis</h1><p id="151c8ffd-17f5-803f-b470-ed9d9ee7dc21" class=""><strong>Ph.D. Thesis: </strong>Multilingual Dependency Parsing, 2023, grade 4.0 A</p><p id="151c8ffd-17f5-80a8-b648-ed4a5a28e3a0" class=""><strong>Bachelor Thesis</strong>: Dependency Parsing Based on Recurrent Neural Networks, 2017, grade 4.0 A</p><h1 id="151c8ffd-17f5-8084-99bf-cff817b0ab49" class=""><strong>Education / Experience</strong></h1><ul id="151c8ffd-17f5-809c-9668-f445df29b33c" class="bulleted-list"><li style="list-style-type:disc">2023 - Present: Postdoc at Fudan University</li></ul><ul id="151c8ffd-17f5-8090-b32d-d7b4f138fd49" class="bulleted-list"><li style="list-style-type:disc">2020 - 2021: Research Intern at Alibaba DAMO Academy</li></ul><ul id="151c8ffd-17f5-806a-ab9f-d31ef0043c29" class="bulleted-list"><li style="list-style-type:disc">2017 - 2023: Ph.D. student at East China Normal University</li></ul><ul id="151c8ffd-17f5-8038-9c98-c033f0d96a1b" class="bulleted-list"><li style="list-style-type:disc">2013 - 2017: B.Eng from East China Normal University</li></ul><h1 id="151c8ffd-17f5-80b6-9eaf-c3542cd35037" class=""><strong>Selected Awards</strong></h1><ul id="151c8ffd-17f5-80d2-bdcb-c8bc1e84cb3e" class="bulleted-list"><li style="list-style-type:disc">Postdoctoral Fellowship Program of CPSF (C), 2023</li></ul><ul id="151c8ffd-17f5-80e4-ad7f-fcbebfa65a90" class="bulleted-list"><li style="list-style-type:disc">Shanghai &quot;Super Postdoc&quot; Incentive Program, 2023</li></ul><ul id="151c8ffd-17f5-80ce-b258-f3ff963fa797" class="bulleted-list"><li style="list-style-type:disc">Rank 1 at CCL2021 shared task: Multi-source Cross-domain Dependency Parsing, 2021</li></ul><ul id="151c8ffd-17f5-8038-820b-ddf8cbf032ab" class="bulleted-list"><li style="list-style-type:disc">Rank 2 at NLPCC2019 shared task: Cross-domain Dependency Parsing, 2019</li></ul><ul id="151c8ffd-17f5-8004-a4d4-f650f0ae921e" class="bulleted-list"><li style="list-style-type:disc">National Scholarship, 2018</li></ul><ul id="151c8ffd-17f5-8065-887a-f3daf971901c" class="bulleted-list"><li style="list-style-type:disc">First Prize in Chinese undergraduate computer design contest (8th), 2015</li></ul><ul id="151c8ffd-17f5-8064-b670-e99d4f335245" class="bulleted-list"><li style="list-style-type:disc">Silver Medal in <a href="http://acm2015.shu.edu.cn/">ACM-ICPC Asia EC-FINAL Contest</a>, 2015</li></ul><ul id="151c8ffd-17f5-805b-97a4-c7ad04c469f4" class="bulleted-list"><li style="list-style-type:disc">Silver Medal in <a href="http://acm.nwpu.edu.cn/">ACM-ICPC Asia Xian Regional Contest</a>, 2014</li></ul><h1 id="151c8ffd-17f5-8000-980b-e53c61cdc681" class="">Contact</h1><p id="151c8ffd-17f5-807a-986d-f798f0bf293e" class="">taoji[at]fudan.edu.cn</p><p id="151c8ffd-17f5-8061-b282-da0685be0de7" class="">A5029, Interdisciplinary Building No.2, Fudan University (Jiangwan Campus)</p><p id="151c8ffd-17f5-8015-8f28-e983e3879f82" class="">2005 Songhu Road, Shanghai 200438, China</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
